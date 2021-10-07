@@ -17,6 +17,15 @@ namespace FirstWeb
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
         }
+        //**** DISCONNECTED APPROACH OF InsertCustomer()
+         public void InsertCustomer(string customer_id, string cust_name, string city, string grade, string salesman_id)
+        {
+            string insertQuerry = "insert into customer values('" + customer_id + "','" + cust_name + "','" + city + "','" + grade + "','" + salesman_id + "')";
+            SqlConnection sqlConnection = new SqlConnection(@"Data Source = LAPTOP-TG0AKH7V\SQLEXPRESS; Initial Catalog = sales; Integrated Security = True");
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(insertQuerry, sqlConnection);
+            DataTable dt = new DataTable();
+            sqlDataAdapter.Fill(dt);
+        }
         public DataTable getCustomer()
         {
             SqlConnection sqlConnection = new SqlConnection(@"Data Source = LAPTOP-TG0AKH7V\SQLEXPRESS; Initial Catalog = sales; Integrated Security = True");
@@ -29,6 +38,18 @@ namespace FirstWeb
             return dt;
 
         }
+        //*********** DISCONNECTED APPROACH FOR getCustomer()
+         public DataTable getCustomer()
+        {
+            string selectquerry = "select * from customer";
+            SqlConnection sqlConnection = new SqlConnection(@"Data Source = LAPTOP-TG0AKH7V\SQLEXPRESS; Initial Catalog = sales; Integrated Security = True");
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(selectquerry, sqlConnection);
+            DataTable dt = new DataTable();
+            sqlDataAdapter.Fill(dt);
+            return dt;
+
+        }
+        
         public void UpdateCustomer(string customer_id, string cust_name, string city, string grade, string salesman_id)
         {
             SqlConnection sqlConnection = new SqlConnection(@"Data Source = LAPTOP-TG0AKH7V\SQLEXPRESS; Initial Catalog = sales; Integrated Security = True");
@@ -37,6 +58,7 @@ namespace FirstWeb
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
         }
+       
         public DataTable GetCustomerBYcustomer_id(int customer_id)
         {
             SqlConnection sqlConnection = new SqlConnection(@"Data Source = LAPTOP-TG0AKH7V\SQLEXPRESS; Initial Catalog = sales; Integrated Security = True");
